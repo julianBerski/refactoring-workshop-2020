@@ -6,6 +6,8 @@
 #include "EventT.hpp"
 #include "IPort.hpp"
 
+//komentarz testowy
+
 namespace Snake
 {
 ConfigurationError::ConfigurationError()
