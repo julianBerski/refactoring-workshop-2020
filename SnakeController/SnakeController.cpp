@@ -215,6 +215,30 @@ Controller::Segment Controller::getNewHead() const
 
 void Controller::receive(std::unique_ptr<Event> e)
 {
+    
+    switch(e->getMessageId())
+    {
+        case 0x20:
+        handleTimePassed(*std::make_unique<TimeoutInd>(e->clone()));
+        break;
+
+        case 0x10:
+        handleDirectionChange(*std::make_unique<DirectionInd>(e->clone()));
+        break;
+
+        case 0x40:
+        handleFoodPositionChange(*std::make_unique<FoodInd>(e->clone()));
+        break;
+
+        case 0x42:
+        handleNewFood(*std::make_unique<FoodResp>(e->clone()));
+        break;
+
+        default:
+        throw UnexpectedEventException();
+        break;
+    }
+    /*
     try {
         handleTimePassed(*dynamic_cast<EventT<TimeoutInd> const&>(*e));
     } catch (std::bad_cast&) {
@@ -232,6 +256,7 @@ void Controller::receive(std::unique_ptr<Event> e)
             }
         }
     }
+    */
 }
 
 } // namespace Snake
