@@ -1,4 +1,5 @@
 #include "SnakeController.hpp"
+#include "MapController.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -28,9 +29,13 @@ Controller::Controller(IPort& p_displayPort, IPort& p_foodPort, IPort& p_scorePo
     int width, height, length;
     int foodX, foodY;
     istr >> w >> width >> height >> f >> foodX >> foodY >> s;
+    Map::MapValues mapValues{};
+    m_mapValues = mapValues;
 
     if (w == 'W' and f == 'F' and s == 'S') {
-        m_mapDimension = std::make_pair(width, height);
+        
+        mapValues.setMapDimensions(std::make_pair(width, height));
+        //m_mapDimension = std::make_pair(width, height);
         m_foodPosition = std::make_pair(foodX, foodY);
 
         istr >> d;
@@ -70,7 +75,8 @@ bool Controller::isSegmentAtPosition(int x, int y) const
 
 bool Controller::isPositionOutsideMap(int x, int y) const
 {
-    return x < 0 or y < 0 or x >= m_mapDimension.first or y >= m_mapDimension.second;
+    std::pair<int, int> l = m_mapValues.
+    return x < 0 or y < 0 or x >= m_mapValues.getMapDimensions().first or y >= m_mapValues.getMapDimensions().second;
 }
 
 void Controller::sendPlaceNewFood(int x, int y)

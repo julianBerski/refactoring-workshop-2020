@@ -31,12 +31,14 @@ public:
     Controller& operator=(Controller const& p_rhs) = delete;
 
     void receive(std::unique_ptr<Event> e) override;
+    void addMapController(Map::MapValues &mc);
 
 private:
     IPort& m_displayPort;
     IPort& m_foodPort;
     IPort& m_scorePort;
 
+    Map::MapValues m_mapValues;
     std::pair<int, int> m_mapDimension;
     std::pair<int, int> m_foodPosition;
 

@@ -6,6 +6,7 @@ set(SNAKE_SOURCES
     SnakeController.cpp
 )
 set(SNAKE_HEADERS
+    MapController.hpp
     SnakeController.hpp
     SnakeInterface.hpp
 )
